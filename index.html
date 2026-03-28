@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Monday — True Crime. Public Record. Every Day.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a2e;
+  --bg-tertiary: #16213e;
+  --accent: #d4a037;
+  --accent-dim: rgba(212, 160, 55, 0.15);
+  --accent-glow: rgba(212, 160, 55, 0.3);
+  --white: #ffffff;
+  --gray-100: #f0f0f0;
+  --gray-200: #d0d0d0;
+  --gray-300: #a0a0a0;
+  --gray-400: #707070;
+  --gray-500: #404040;
+  --gray-600: #2a2a2a;
+  --gray-700: #1a1a1a;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-primary);
+  color: var(--gray-200);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(212, 160, 55, 0.1);
+  padding: 0 2rem;
+  transition: all 0.3s ease;
+}
+
+nav.scrolled {
+  background: rgba(10, 10, 10, 0.95);
+  border-bottom-color: rgba(212, 160, 55, 0.25);
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--gray-300);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover { color: var(--accent); }
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200') center/cover no-repeat;
+  filter: brightness(0.15) saturate(0.3);
+  transform: scale(1.05);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    rgba(10,10,10,0.3) 0%,
+    rgba(10,10,10,0.6) 50%,
+    rgba(10,10,10,0.95) 100%
+  );
+}
+
+.hero-noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  padding: 2rem;
+}
+
+.hero-badge {
+  display: inline-block;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.4rem 1.2rem;
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(3.5rem, 10vw, 7rem);
+  color: var(--white);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+.hero h1 span {
+  display: block;
+  color: var(--accent);
+  font-style: italic;
+  font-size: 0.4em;
+  letter-spacing: 0.05em;
+  margin-top: 0.5rem;
+}
+
+.hero-subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  color: var(--gray-200);
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.8s ease 0.6s both;
+}
+
+.hero-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.8s ease 0.8s both;
+}
+
+.hero-desc {
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--gray-300);
+  font-size: 1rem;
+  line-height: 1.8;
+  animation: fadeInUp 0.8s ease 1s both;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  animation: bounce 2s infinite;
+}
+
+.hero-scroll span {
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+}
+
+/* ─── SECTIONS ─── */
+section {
+  padding: 6rem 2rem;
+  position: relative;
+}
+
+section:nth-child(even) {
+  background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+}
+
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-label::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--white);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.section-title em {
+  color: var(--accent);
+  font-style: italic;
+}
+
+.section-desc {
+  max-width: 700px;
+  color: var(--gray-300);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+
+/* ─── CARDS ─── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: rgba(26, 26, 46, 0.5);
+  border: 1px solid rgba(212, 160, 55, 0.1);
+  border-radius: 2px;
+  padding: 2rem;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.card:hover {
+  border-color: rgba(212, 160, 55, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.card:hover::before { opacity: 1; }
+
+.card-icon {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.card h3 {
+  font-family: var(--font-display);
+  color: var(--white);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.card p {
+  color: var(--gray-300);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+/* ─── FEATURE LIST ─── */
+.feature-list {
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(22, 33, 62, 0.3);
+  border-left: 2px solid var(--accent);
+  font-size: 0.95rem;
+  color: var(--gray-200);
+  transition: background 0.3s;
+}
+
+.feature-list li:hover {
+  background: rgba(22, 33, 62, 0.6);
+}
+
+.feature-list li::before {
+  content: '▸';
+  color: var(--accent);
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* ─── VOICE SECTION ─── */
+.voice-profile {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.voice-attrs {
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.voice-attrs li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.voice-attrs .label {
+  color: var(--gray-400);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  min-width: 100px;
+}
+
+.voice-attrs .value {
+  color: var(--white);
+  font-weight: 500;
+}
+
+.voice-attrs .value.accent {
+  color: var(--accent);
+}
+
+.script-block {
+  background: rgba(10, 10, 10, 0.8);
+  border: 1px solid rgba(212, 160, 55, 0.15);
+  border-radius: 2px;
+  padding: 2rem;
+  margin-top: 2.5rem;
+  position: relative;
+}
+
+.script-block::before {
+  content: 'SAMPLE SCRIPT';
+  position: absolute;
+  top: -0.6rem;
+  left: 1.5rem;
+  background: var(--bg-primary);
+  padding: 0 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+}
+
+.script-block p {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 2;
+  color: var(--gray-200);
+}
+
+.script-block .sig {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.script-block .pause {
+  color: var(--gray-500);
+  font-style: italic;
+}
+
+/* ─── TABLE ─── */
+.show-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+}
+
+.show-table thead th {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(212, 160, 55, 0.3);
+  background: rgba(26, 26, 46, 0.3);
+}
+
+.show-table tbody td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 0.9rem;
+  vertical-align: top;
+}
+
+.show-table tbody tr {
+  transition: background 0.3s;
+}
+
+.show-table tbody tr:hover {
+  background: rgba(22, 33, 62, 0.3);
+}
+
+.show-name {
+  font-family: var(--font-display);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.show-freq {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.show-dur {
+  color: var(--gray-400);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+/* ─── IMAGE SECTIONS ─── */
+.media-section {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.media-section.reverse {
+  grid-template-columns: 1.2fr 1fr;
+}
+
+.media-section.reverse .media-image { order: -1; }
+
+.media-image {
+  position: relative;
+  border-radius: 2px;
+  overflow: hidden;
+  aspect-ratio: 16/10;
+}
+
+.media-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7) saturate(0.6);
+  transition: all 0.5s ease;
+}
+
+.media-image:hover img {
+  filter: brightness(0.85) saturate(0.8);
+  transform: scale(1.03);
+}
+
+.media-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(212, 160, 55, 0.15);
+  pointer-events: none;
+}
+
+/* ─── CALENDAR ─── */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-top: 2rem;
+}
+
+.cal-header {
+  background: rgba(212, 160, 55, 0.15);
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.cal-cell {
+  background: rgba(26, 26, 46, 0.4);
+  padding: 0.75rem;
+  min-height: 120px;
+  border: 1px solid rgba(255,255,255,0.03);
+  transition: all 0.3s;
+}
+
+.cal-cell:hover {
+  background: rgba(26, 26, 46, 0.7);
+  border-color: rgba(212, 160, 55, 0.15);
+}
+
+.cal-item {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.4rem;
+  margin-bottom: 0.25rem;
+  border-radius: 1px;
+  line-height: 1.4;
+}
+
+.cal-podcast {
+  background: rgba(212, 160, 55, 0.2);
+  color: var(--accent);
+  border-left: 2px solid var(--accent);
+}
+
+.cal-video {
+  background: rgba(255, 59, 48, 0.15);
+  color: #ff6b6b;
+  border-left: 2px solid #ff6b6b;
+}
+
+.cal-social {
+  background: rgba(88, 166, 255, 0.15);
+  color: #58a6ff;
+  border-left: 2px solid #58a6ff;
+}
+
+.cal-x {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--gray-300);
+  border-left: 2px solid var(--gray-400);
+}
+
+/* ─── DATA SOURCES ─── */
+.source-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.source-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: rgba(22, 33, 62, 0.3);
+  border: 1px solid rgba(255,255,255,0.04);
+  transition: all 0.3s;
+}
+
+.source-item:hover {
+  border-color: rgba(212, 160, 55, 0.2);
+  background: rgba(22, 33, 62, 0.5);
+}
+
+.source-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.source-item span {
+  font-size: 0.9rem;
+  color: var(--gray-200);
+}
+
+/* ─── WHY IT WORKS ─── */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  counter-reset: why-counter;
+}
+
+.why-card {
+  counter-increment: why-counter;
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.5), rgba(22, 33, 62, 0.3));
+  border: 1px solid rgba(212, 160, 55, 0.08);
+  padding: 2rem;
+  position: relative;
+  transition: all 0.4s;
+}
+
+.why-card:hover {
+  border-color: rgba(212, 160, 55, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+}
+
+.why-card::before {
+  content: counter(why-counter, decimal-leading-zero);
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: rgba(212, 160, 55, 0.12);
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  line-height: 1;
+}
+
+.why-card h3 {
+  font-family: var(--font-display);
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.why-card p {
+  color: var(--gray-300);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+/* ─── SAMPLE COVERAGE ─── */
+.sample-coverage {
+  background: rgba(10, 10, 10, 0.6);
+  border: 1px solid rgba(212, 160, 55, 0.12);
+  padding: 2.5rem;
+  position: relative;
+}
+
+.sample-coverage::before {
+  content: 'BREAKING';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--accent);
+  color: var(--bg-primary);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 0.4rem 1rem;
+}
+
+.sample-header {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(212, 160, 55, 0.15);
+}
+
+.sample-header h3 {
+  font-family: var(--font-display);
+  color: var(--white);
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.sample-header .meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--gray-400);
+  margin-top: 0.25rem;
+}
+
+.sample-script {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 2;
+  color: var(--gray-200);
+  margin-bottom: 2rem;
+}
+
+.sample-script .sig { color: var(--accent); font-weight: 500; }
+.sample-script .pause { color: var(--gray-500); font-style: italic; }
+
+.data-pull {
+  background: rgba(22, 33, 62, 0.4);
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.data-pull h4 {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.data-pull ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.5rem;
+}
+
+.data-pull li {
+  font-size: 0.82rem;
+  color: var(--gray-300);
+  padding-left: 1rem;
+  position: relative;
+}
+
+.data-pull li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* ─── TOTALS BAR ─── */
+.totals-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(212, 160, 55, 0.08);
+  border: 1px solid rgba(212, 160, 55, 0.15);
+}
+
+.total-item {
+  flex: 1;
+  min-width: 140px;
+  text-align: center;
+}
+
+.total-num {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.total-label {
+  font-size: 0.7rem;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.25rem;
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem 0;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 160, 55, 0.2), transparent);
+}
+
+.divider span {
+  color: var(--accent);
+  font-size: 0.8rem;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 4rem 2rem;
+  text-align: center;
+  background: linear-gradient(180deg, var(--bg-primary), #050510);
+  border-top: 1px solid rgba(212, 160, 55, 0.08);
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.footer-sub {
+  font-size: 0.85rem;
+  color: var(--gray-400);
+  margin-bottom: 0.25rem;
+}
+
+.footer-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  margin-top: 1.5rem;
+  font-style: italic;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  section { padding: 4rem 1.25rem; }
+  .voice-profile { grid-template-columns: 1fr; }
+  .media-section,
+  .media-section.reverse { grid-template-columns: 1fr; }
+  .media-section.reverse .media-image { order: 0; }
+  .calendar-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cal-header:nth-child(n+3) { display: none; }
+  .show-table { display: block; overflow-x: auto; }
+  .card-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .calendar-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">AGENT MONDAY</a>
+    <ul class="nav-links">
+      <li><a href="#concept">Concept</a></li>
+      <li><a href="#voice">Voice</a></li>
+      <li><a href="#shows">Shows</a></li>
+      <li><a href="#youtube">YouTube</a></li>
+      <li><a href="#social">Social</a></li>
+      <li><a href="#calendar">Calendar</a></li>
+      <li><a href="#why">Why</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-content">
+    <div class="hero-badge">An Inception Point AI Production</div>
+    <h1>Agent Monday<span>True Crime. Public Record. Every Day.</span></h1>
+    <p class="hero-tagline">"The facts don't need your opinion. They need your attention."</p>
+    <p class="hero-desc">An AI-powered true crime correspondent that reports exclusively from public records — court filings, arrest reports, and government documents. No speculation. No hearsay. Just the record.</p>
+  </div>
+  <div class="hero-scroll"><span></span></div>
+</section>
+
+<!-- CONCEPT -->
+<section id="concept">
+  <div class="section-inner reveal">
+    <div class="section-label">01 — The Concept</div>
+    <h2 class="section-title">Built on <em>Documents</em>, Not Speculation</h2>
+    <div class="media-section">
+      <div>
+        <p class="section-desc">Agent Monday is an AI true crime correspondent that reports exclusively from public records. Think <strong>Dragnet meets modern investigative podcast</strong> — just the facts, delivered with gravity and dry wit.</p>
+        <ul class="feature-list">
+          <li>Only source: court filings, arrest reports, government documents</li>
+          <li>Every claim is verifiable. Every story starts with a filing.</li>
+          <li>No anonymous tips. No unnamed sources. No speculation.</li>
+          <li>The differentiator: credibility through radical transparency</li>
+          <li>One filing becomes a podcast, a video, a reel, a thread</li>
+        </ul>
+      </div>
+      <div class="media-image">
+        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800" alt="Legal documents" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE -->
+<section id="voice">
+  <div class="section-inner reveal">
+    <div class="section-label">02 — The Voice</div>
+    <h2 class="section-title">Meet <em>Monday</em></h2>
+    <p class="section-desc">A character built for trust. Authoritative but not arrogant. Precise but not cold. The kind of voice that makes you lean in and listen.</p>
+
+    <div class="voice-profile">
+      <div>
+        <ul class="voice-attrs">
+          <li><span class="label">Profile</span><span class="value">Authoritative male, mid-40s</span></li>
+          <li><span class="label">Pacing</span><span class="value">Measured, deliberate</span></li>
+          <li><span class="label">Tone</span><span class="value">Dry wit, gravitas</span></li>
+          <li><span class="label">Opens with</span><span class="value accent">"Monday's report..."</span></li>
+          <li><span class="label">Closes with</span><span class="value accent">"Monday out."</span></li>
+          <li><span class="label">Reference</span><span class="value">Keith Morrison × Anderson Cooper × Ira Glass</span></li>
+          <li><span class="label">Hume Voice</span><span class="value accent">Created & tested ✅</span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="card" style="margin: 0;">
+          <div class="card-icon">🎙️</div>
+          <h3>Voice DNA</h3>
+          <p>The confidence of a veteran correspondent. The patience of someone who has read ten thousand filings. The wit of someone who knows the system's absurdities — and respects it anyway.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="script-block">
+      <p>
+        <span class="sig">"Monday's report."</span><br><br>
+        <span class="pause">[beat]</span><br><br>
+        Eldrick Tont Woods — known professionally as Tiger Woods — was arrested early Monday morning by the Jupiter Police Department in Palm Beach County, Florida.<br><br>
+        The charge: DUI. Florida Statute 316.193.<br><br>
+        <span class="pause">[beat]</span><br><br>
+        According to the arrest affidavit, officers found Woods asleep at the wheel of a 2015 Mercedes-Benz, engine running, parked in the right lane of Military Trail. His speech was described as slow and slurred. He was unable to complete a field sobriety test without difficulty.<br><br>
+        Toxicology results are pending. Woods released a statement through his attorney attributing the incident to a reaction to prescription medication. No alcohol was found in his system at the time of the breathalyzer.<br><br>
+        <span class="pause">[beat]</span><br><br>
+        The filing is public. The record is clear. What happens next depends on Palm Beach County.<br><br>
+        <span class="sig">"Monday out."</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- SHOW FORMATS -->
+<section id="shows">
+  <div class="section-inner reveal">
+    <div class="section-label">03 — Show Formats</div>
+    <h2 class="section-title">The <em>Podcast</em> Network</h2>
+    <p class="section-desc">Six distinct shows — from daily briefings to deep dives — each anchored in public record. A full-spectrum true crime audio operation.</p>
+
+    <div class="media-image" style="max-width: 100%; aspect-ratio: 21/9; margin-bottom: 2rem;">
+      <img src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=800" alt="Podcast microphone" loading="lazy">
+    </div>
+
+    <table class="show-table">
+      <thead>
+        <tr>
+          <th>Show</th>
+          <th>Frequency</th>
+          <th>Duration</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="show-name">Monday's Report</span></td>
+          <td><span class="show-freq">Daily</span></td>
+          <td><span class="show-dur">5–10 min</span></td>
+          <td>Daily briefing from public record. The flagship.</td>
+        </tr>
+        <tr>
+          <td><span class="show-name">The Docket</span></td>
+          <td><span class="show-freq">2×/week</span></td>
+          <td><span class="show-dur">20–30 min</span></td>
+          <td>Single case deep dive. One filing, every angle.</td>
+        </tr>
+        <tr>
+          <td><span class="show-name">Cold Case Monday</span></td>
+          <td><span class="show-freq">Weekly</span></td>
+          <td><span class="show-dur">15–20 min</span></td>
+          <td>Resurfaced unsolved cases pulled from archives.</td>
+        </tr>
+        <tr>
+          <td><span class="show-name">White Collar Wednesday</span></td>
+          <td><span class="show-freq">Weekly</span></td>
+          <td><span class="show-dur">10–15 min</span></td>
+          <td>SEC actions, financial fraud, white collar crime.</td>
+        </tr>
+        <tr>
+          <td><span class="show-name">Breaking</span></td>
+          <td><span class="show-freq">As needed</span></td>
+          <td><span class="show-dur">3–5 min</span></td>
+          <td>Major arrest or indictment rapid response.</td>
+        </tr>
+        <tr>
+          <td><span class="show-name">The Booking Log</span></td>
+          <td><span class="show-freq">Weekly</span></td>
+          <td><span class="show-dur">~10 min</span></td>
+          <td>The week's most notable arrests, reviewed.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- YOUTUBE -->
+<section id="youtube">
+  <div class="section-inner reveal">
+    <div class="section-label">04 — YouTube</div>
+    <h2 class="section-title"><em>Video</em> Content Strategy</h2>
+    <div class="media-section reverse">
+      <div>
+        <h3 style="font-family: var(--font-display); color: var(--white); margin-bottom: 1rem; font-size: 1.2rem;">Long-Form</h3>
+        <ul class="feature-list" style="margin-bottom: 2rem;">
+          <li>Deep dive episodes with cinematic B-roll</li>
+          <li>"The Record vs. The Headlines" — what the media says vs. what was filed</li>
+          <li>"Case File" series with on-screen document walkthroughs</li>
+          <li>Monthly compilations of the biggest stories</li>
+        </ul>
+        <h3 style="font-family: var(--font-display); color: var(--white); margin-bottom: 1rem; font-size: 1.2rem;">Shorts</h3>
+        <ul class="feature-list">
+          <li>"One Fact from the Filing" — single punchy takeaway</li>
+          <li>"The Line That Changes Everything" — the filing quote that flips the narrative</li>
+          <li>"Charged vs. Convicted" — legal literacy explainers</li>
+          <li>Breaking news clips — fastest-to-publish verified content</li>
+        </ul>
+      </div>
+      <div class="media-image">
+        <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800" alt="YouTube content" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIKTOK / REELS -->
+<section id="social">
+  <div class="section-inner reveal">
+    <div class="section-label">05 — TikTok & Instagram Reels</div>
+    <h2 class="section-title">Short-Form <em>Dominance</em></h2>
+    <div class="media-section">
+      <div>
+        <div class="card-grid" style="grid-template-columns: 1fr;">
+          <div class="card">
+            <h3>Monday's Minute</h3>
+            <p>Daily 60-second briefing. The fastest true crime update on the internet, every single day.</p>
+          </div>
+          <div class="card">
+            <h3>Read the Record</h3>
+            <p>Actual filing excerpts with dramatic reads. Let the documents speak — with the right lighting.</p>
+          </div>
+          <div class="card">
+            <h3>What They Were Charged With</h3>
+            <p>Charges on screen, explained in plain English. People share what shocks them.</p>
+          </div>
+          <div class="card">
+            <h3>Florida Man Friday 🐊</h3>
+            <p>Weekly roundup from FL arrest records. The franchise within the franchise.</p>
+          </div>
+          <div class="card">
+            <h3>Legal Literacy Quickies</h3>
+            <p>Misdemeanor vs. felony. Arraignment vs. indictment. Demystify the system in 30 seconds.</p>
+          </div>
+        </div>
+      </div>
+      <div class="media-image">
+        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800" alt="Social media" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM FEED -->
+<section>
+  <div class="section-inner reveal">
+    <div class="section-label">06 — Instagram Feed</div>
+    <h2 class="section-title">The <em>Visual</em> Record</h2>
+    <p class="section-desc">A curated feed that turns public records into shareable visual content. Every post is a doorway to the story.</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>Infographic Case Summaries</h3>
+        <p>Complex cases distilled into clean, shareable graphics. Charges, timeline, outcome — one image.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📄</div>
+        <h3>Document of the Day</h3>
+        <p>A highlighted excerpt from a real filing. The most compelling line, given the spotlight.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔄</div>
+        <h3>Case Outcome Updates</h3>
+        <p>Plea deals, verdicts, sentencings. The follow-up posts that keep audiences coming back.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📈</div>
+        <h3>By the Numbers</h3>
+        <p>Justice system statistics made visual. Conviction rates, sentencing disparities, filing volumes.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📅</div>
+        <h3>Case Timeline Carousels</h3>
+        <p>Swipeable timelines that walk through a case from filing to resolution. The carousel that educates.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- X / TWITTER -->
+<section>
+  <div class="section-inner reveal">
+    <div class="section-label">07 — X / Twitter</div>
+    <h2 class="section-title">The <em>Wire</em> Service</h2>
+    <p class="section-desc">Monday on X operates like a wire service — fast, factual, and first. The go-to account for verified case updates.</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🧵</div>
+        <h3>Live-Thread Major Cases</h3>
+        <p>Real-time threads as filings drop. First to the record, first to the timeline.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3>"JUST FILED:" Alerts</h3>
+        <p>Breaking filing alerts with case number, jurisdiction, and key charges. Pure signal.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">✅</div>
+        <h3>Correct the Record</h3>
+        <p>When the headlines get it wrong, Monday posts the actual filing. Misinformation meets documentation.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">👁️</div>
+        <h3>"5 Cases You Should Be Watching"</h3>
+        <p>Weekly roundup of active cases with upcoming hearings. The curated watchlist.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WEEKLY CALENDAR -->
+<section id="calendar">
+  <div class="section-inner reveal">
+    <div class="section-label">08 — Content Calendar</div>
+    <h2 class="section-title">The Weekly <em>Operation</em></h2>
+    <p class="section-desc">A fully mapped content machine. One filing feeds every platform. Here's what a typical week looks like.</p>
+
+    <div class="calendar-grid">
+      <div class="cal-header">Mon</div>
+      <div class="cal-header">Tue</div>
+      <div class="cal-header">Wed</div>
+      <div class="cal-header">Thu</div>
+      <div class="cal-header">Fri</div>
+      <div class="cal-header">Sat</div>
+      <div class="cal-header">Sun</div>
+
+      <!-- Monday -->
+      <div class="cal-cell">
+        <div class="cal-item cal-podcast">Monday's Report</div>
+        <div class="cal-item cal-podcast">Cold Case Monday</div>
+        <div class="cal-item cal-social">2 Reels</div>
+        <div class="cal-item cal-x">Thread</div>
+      </div>
+      <!-- Tuesday -->
+      <div class="cal-cell">
+        <div class="cal-item cal-podcast">Monday's Report</div>
+        <div class="cal-item cal-social">2 Reels</div>
+        <div class="cal-item cal-x">Case updates</div>
+      </div>
+      <!-- Wednesday -->
+      <div class="cal-cell">
+        <div class="cal-item cal-podcast">Monday's Report</div>
+        <div class="cal-item cal-podcast">White Collar Wed</div>
+        <div class="cal-item cal-social">2 Reels</div>
+        <div class="cal-item cal-x">Thread</div>
+      </div>
+      <!-- Thursday -->
+      <div class="cal-cell">
+        <div class="cal-item cal-podcast">Monday's Report</div>
+        <div class="cal-item cal-podcast">The Docket</div>
+        <div class="cal-item cal-video">Deep Dive video</div>
+        <div class="cal-item cal-social">2 Reels</div>
+      </div>
+      <!-- Friday -->
+      <div class="cal-cell">
+        <div class="cal-item cal-podcast">Monday's Report</div>
+        <div class="cal-item cal-podcast">Booking Log</div>
+        <div class="cal-item cal-video">Shorts</div>
+        <div class="cal-item cal-social">Florida Man Fri 🐊</div>
+      </div>
+      <!-- Saturday -->
+      <div class="cal-cell">
+        <div class="cal-item cal-video">Week in Review</div>
+        <div class="cal-item cal-social">1 Reel</div>
+      </div>
+      <!-- Sunday -->
+      <div class="cal-cell">
+        <div class="cal-item cal-social">1 Reel</div>
+        <div class="cal-item cal-x">Week preview</div>
+      </div>
+    </div>
+
+    <div class="totals-bar">
+      <div class="total-item">
+        <div class="total-num">~5</div>
+        <div class="total-label">Podcast Episodes</div>
+      </div>
+      <div class="total-item">
+        <div class="total-num">3–4</div>
+        <div class="total-label">YouTube Videos</div>
+      </div>
+      <div class="total-item">
+        <div class="total-num">10–12</div>
+        <div class="total-label">Reels / TikToks</div>
+      </div>
+      <div class="total-item">
+        <div class="total-num">Daily</div>
+        <div class="total-label">X / Twitter</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA SOURCES -->
+<section>
+  <div class="section-inner reveal">
+    <div class="section-label">09 — Data Sources</div>
+    <h2 class="section-title">The <em>Pipeline</em></h2>
+    <p class="section-desc">Every story begins with a document. Here's where Monday reads the record.</p>
+    <div class="source-grid">
+      <div class="source-item"><div class="source-dot"></div><span>PACER — Federal Courts</span></div>
+      <div class="source-item"><div class="source-dot"></div><span>State Court Systems</span></div>
+      <div class="source-item"><div class="source-dot"></div><span>DOJ Press Releases</span></div>
+      <div class="source-item"><div class="source-dot"></div><span>SEC Enforcement Actions</span></div>
+      <div class="source-item"><div class="source-dot"></div><span>County Booking Logs</span></div>
+      <div class="source-item"><div class="source-dot"></div><span>FBI Most Wanted</span></div>
+      <div class="source-item"><div class="source-dot"></div><span>US Marshals</span></div>
+      <div class="source-item"><div class="source-dot"></div><span>State AG Offices</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY THIS WORKS -->
+<section id="why">
+  <div class="section-inner reveal">
+    <div class="section-label">10 — The Case</div>
+    <h2 class="section-title">Why This <em>Works</em></h2>
+    <p class="section-desc">This isn't a creative experiment. It's a content machine built on structural advantages.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>Category Dominance</h3>
+        <p>True crime is the #1–2 podcast category globally. The audience is massive and insatiable.</p>
+      </div>
+      <div class="why-card">
+        <h3>Free & Unlimited Source</h3>
+        <p>Public records are free, unlimited, and legally safe. No licensing. No rights issues. No friction.</p>
+      </div>
+      <div class="why-card">
+        <h3>Timeliness = SEO</h3>
+        <p>Filing-to-publish speed creates an SEO moat. First to the record means first in the algorithm.</p>
+      </div>
+      <div class="why-card">
+        <h3>Breakout Franchises</h3>
+        <p>"Florida Man Friday" alone could be a breakout hit. The format is a meme machine with a legal backbone.</p>
+      </div>
+      <div class="why-card">
+        <h3>Content Multiplier</h3>
+        <p>One filing → podcast + YouTube + TikTok + Instagram + X. Five platforms from a single source document.</p>
+      </div>
+      <div class="why-card">
+        <h3>Trust Through Verification</h3>
+        <p>Built on verification, not speculation. In an era of misinformation, Monday is the antidote.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAMPLE COVERAGE -->
+<section>
+  <div class="section-inner reveal">
+    <div class="section-label">11 — Sample Coverage</div>
+    <h2 class="section-title">Monday <em>in Action</em></h2>
+    <p class="section-desc">Here's how Monday would cover a real breaking story — from filing to full brief in minutes.</p>
+
+    <div class="media-image" style="max-width: 100%; aspect-ratio: 21/9; margin-bottom: 2rem;">
+      <img src="https://images.unsplash.com/photo-1504711434969-e33886168d5c?w=800" alt="Breaking news" loading="lazy">
+    </div>
+
+    <div class="sample-coverage">
+      <div class="sample-header">
+        <h3>Tiger Woods — DUI Arrest, Palm Beach County</h3>
+        <div class="meta">BREAKING BRIEF · Jupiter PD · FL Statute 316.193 · Filed 2017-05-29</div>
+      </div>
+
+      <div class="sample-script">
+        <span class="sig">"Monday's report."</span><br><br>
+        <span class="pause">[beat]</span><br><br>
+        Eldrick Tont Woods — known professionally as Tiger Woods — was arrested early Monday morning by the Jupiter Police Department in Palm Beach County, Florida.<br><br>
+        The charge: DUI. Florida Statute 316.193.<br><br>
+        <span class="pause">[beat]</span><br><br>
+        According to the arrest affidavit, officers found Woods asleep at the wheel of a 2015 Mercedes-Benz, engine running, parked in the right lane of Military Trail. His speech was described as slow and slurred. He was unable to complete a field sobriety test without difficulty.<br><br>
+        Toxicology results are pending. Woods released a statement through his attorney attributing the incident to a reaction to prescription medication. No alcohol was found in his system at the time of the breathalyzer.<br><br>
+        <span class="pause">[beat]</span><br><br>
+        The filing is public. The record is clear. What happens next depends on Palm Beach County.<br><br>
+        <span class="sig">"Monday out."</span>
+      </div>
+
+      <div class="data-pull">
+        <h4>Additional Data Points Monday Would Pull</h4>
+        <ul>
+          <li>Prior record check — any previous arrests in FL or CA</li>
+          <li>FL Statute 316.193 — penalties, mandatory minimums</li>
+          <li>Jupiter PD booking log — time of arrest, booking number</li>
+          <li>Toxicology lab — which facility, expected turnaround</li>
+          <li>Court assignment — which judge, first appearance date</li>
+          <li>Vehicle registration — ownership, any liens</li>
+          <li>Civil case cross-reference — pending lawsuits</li>
+          <li>Attorney of record — firm, notable prior representations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Agent Monday</div>
+  <div class="footer-sub">An Inception Point AI Production</div>
+  <div class="footer-sub">Quiet Please Podcast Network</div>
+  <div class="footer-tag">Not organic. Still reading the record.</div>
+</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+</script>
+
+</body>
+</html>
